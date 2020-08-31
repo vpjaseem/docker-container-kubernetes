@@ -1,0 +1,30 @@
+#Start a Container httpd (Apache2)
+docker container run --detach --publish 80:80 --name webapp httpd
+
+#Access terminal (shell) of the Container
+docker container exec -it webapp bash
+
+#Update packages
+apt-get update
+
+#Install VIM, CURL and GIT
+apt-get install -y vim
+apt-get install -y curl
+apt-get install -y git
+
+#Navigate to the HTML File Folder
+cd /usr/local/apache2/htdocs
+
+#Clone sample HTML site from GIT & move necessary files
+git clone https://github.com/vpjaseem/sample-static-html-web-app.git
+
+mv index.html index.html_old
+
+cp -r sample-static-html-web-app/* /usr/local/apache2/htdocs
+rm -r sample-static-html-web-app
+
+#Exit Container shell
+exit
+
+#Restart the Container
+docker container restart webapp
