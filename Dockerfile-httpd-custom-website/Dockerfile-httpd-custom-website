@@ -1,0 +1,14 @@
+FROM httpd:latest
+RUN apt-get -y update
+WORKDIR /usr/local/apache2/htdocs
+RUN apt-get install -y unzip \
+	&& apt-get install -y curl \
+	&& curl -LO -k https://github.com/vpjaseem/sample-static-html-web-app/archive/master.zip \
+	&& unzip master.zip \
+	&& cp -r /usr/local/apache2/htdocs/sample-static-html-web-app-master/* /usr/local/apache2/htdocs \
+	&& rm -f master.zip \
+	&& rm -rf sample-static-html-web-app-master/
+WORKDIR /usr/local/apache2/conf
+RUN echo 'ServerName localhost' >>httpd.conf
+EXPOSE 80 443
+CMD ["httpd", "-D","FOREGROUND"]
