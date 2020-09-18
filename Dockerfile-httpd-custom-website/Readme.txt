@@ -76,3 +76,21 @@ Step 9 (Optional): Pull the Image from Docker Hub
 [root@localhost Desktop]#docker pull vpjaseem/httpd-custom-website:latest
 [root@localhost Desktop]#docker container run --name web-app --detach --publish 80:80 vpjaseem/httpd-custom-website
 //
+
+Step 10: Access the bash terminal of the Web App
+- If you want to modify any seetings on the underlying Container bash.
+//
+[root@localhost Desktop]#docker container exec -it web-app bash
+//
+
+//
+root@d6ed2e896c1b:/usr/local/apache2/htdocs# 
+root@d6ed2e896c1b:/usr/local/apache2/htdocs# ls -ltr
+total 8
+-rw-r--r--. 1 root src  2475 Sep 18 19:28 index.html
+drwxr-xr-x. 2 root root  214 Sep 18 19:28 img
+drwxr-xr-x. 2 root root   26 Sep 18 19:28 fonts
+drwxr-xr-x. 2 root root   22 Sep 18 19:28 css
+-rw-r--r--. 1 root root   29 Sep 18 19:28 README.md
+root@d6ed2e896c1b:/usr/local/apache2/htdocs# 
+//
