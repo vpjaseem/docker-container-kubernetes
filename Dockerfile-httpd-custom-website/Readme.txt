@@ -16,6 +16,10 @@ Step 2: Build an image based on this Dockerfile
 //
 [root@localhost Desktop]#docker image build -t vpjaseem/httpd-custom-website .
 //
+OR if the Docker file name is not 'Dockerfile' us '-f' in the build command with Docker File name. E.g. Dockerfile-httpd-custom-website
+//
+[root@localhost Desktop]# docker image build -t vpjaseem/httpd-custom-website -f Dockerfile-httpd-custom-website .
+//
 
 Step 4: Start a Container using the Image 'vpjaseem/httpd-custom-website'
 //
