@@ -146,7 +146,7 @@ Optional: If you want to promote any Worker node as Manager node, use update com
 Optional: To create Redundant Containers
 
 //
-[root@node-01 ~]# docker service create --replicas 3 alpine ping 8.8.8.8
+[root@node-01 ~]# docker service create --name web-app --publish 80:80 --replicas 3 vpjaseem/httpd-custom-website
 tjtoplrsmgkj3oqn6oo4ujjjx
 overall progress: 3 out of 3 tasks 
 1/3: running   [==================================================>] 
@@ -156,26 +156,27 @@ verify: Service converged
 //
 
 //
-[root@node-01 ~]# docker service ls 
-ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
-x878oxoqippf        determined_kirch    replicated          3/3                 alpine:latest       
+[root@node-01 ~]# docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE                                  PORTS
+a4vsenp86uo5        web-app             replicated          3/3                 vpjaseem/httpd-custom-website:latest   *:80->80/tcp
 [root@node-01 ~]# 
-
-[root@node-01 ~]# docker service ps determined_kirch 
-ID                  NAME                 IMAGE               NODE                DESIRED STATE       CURRENT STATE                ERROR               PORTS
-lz30sb6jefku        determined_kirch.1   alpine:latest       node-02             Running             Running about a minute ago                       
-s6ofsyepw93j        determined_kirch.2   alpine:latest       node-03             Running             Running about a minute ago                       
-om4ws4ys3q7u        determined_kirch.3   alpine:latest       node-01             Running             Running about a minute ago                       
+[root@node-01 ~]# 
+[root@node-01 ~]# 
+[root@node-01 ~]# docker service ps web-app 
+ID                  NAME                IMAGE                                  NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+r91ors383kew        web-app.1           vpjaseem/httpd-custom-website:latest   node-01             Running             Running 50 seconds ago                       
+6ftg69o24rms        web-app.2           vpjaseem/httpd-custom-website:latest   node-02             Running             Running 51 seconds ago                       
+e1bfsm47v7rc        web-app.3           vpjaseem/httpd-custom-website:latest   node-03             Running             Running 50 seconds ago                       
 [root@node-01 ~]# 
 //
 
 Optional: To Increase the Replicas
 
-[root@node-01 ~]#  docker service update determined_kirch --replicas 5
+[root@node-01 ~]#  docker service update web-app --replicas 5
 
 Optional: Remove Services
 
 //
-[root@node-01 ~]# docker service rm determined_kirch
+[root@node-01 ~]# docker service rm web-app
 //
 
