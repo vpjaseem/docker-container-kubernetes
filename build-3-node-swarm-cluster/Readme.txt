@@ -3,14 +3,21 @@ How to build a 3 node Docker Swarm Cluster?
 Step 1: Set up the Nodes
 - Depending on your environment, get 3 nodes (Linux preffered) with Docker engine installed.
 - I'm using vmware Workstation to build my infrastructure with 3 CentOS 7 running Docker Engine.
+- Seup the hostname with below commands.
+//
+[root@localhost ~]# hostnamectl set-hostname node-01
+[root@localhost ~]# hostnamectl
+[root@localhost ~]# systemctl reboot
+//
 - To install Docker on CentOS, follow below commands. You must install docker on all available nodes.
 
 //
 [root@node-02 ~]# yum update -y
 [root@node-02 ~]# yum install -y yum-utils
 [root@node-02 ~]# sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-[root@node-02 ~]# yum install -y docker-ce docker-ce-cli containerd.io
+[root@node-02 ~]# yum install -y docker-ce docker-ce-cli containerd.io -y
 [root@node-02 ~]# systemctl start docker
+[root@node-02 ~]# chkconfig docker on
 //
 - Make sure you get below output for the 'docker version' command.
 //
